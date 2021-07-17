@@ -11,7 +11,6 @@ from collections import OrderedDict
 CUSTOMER_NUM = 100
 ORDER_NUM = 1000
 ORDER_START_DATE = datetime(2021, 1, 1)
-PROJECT_ID = 'demobox-313313'
 DATASET_ID = 'ecommerce'
 
 
@@ -79,6 +78,7 @@ if __name__ == '__main__':
     batch = subparser.add_parser('batch')
     batch.add_argument('--customer_count', type=int)
     batch.add_argument('--order_count', type=int)
+    batch.add_argument('--project_id')
 
     stream = subparser.add_parser('stream')
     stream.add_argument('--customer_range', type=int)
@@ -88,11 +88,11 @@ if __name__ == '__main__':
     if args.command == 'batch':
         dg = DataGenerator()
         customers = dg.generate_customers(args.customer_count)
-        customers.to_gbq(f'{DATASET_ID}.customers', project_id=PROJECT_ID, if_exists='replace')
+        customers.to_gbq(f'{DATASET_ID}.customers', project_id=args.project_id, if_exists='replace')
 
         orders = dg.generate_orders(
             order_count=args.order_count, customer_range=args.customer_count)
-        orders.to_gbq(f'{DATASET_ID}.orders', project_id=PROJECT_ID, if_exists='replace')
+        orders.to_gbq(f'{DATASET_ID}.orders', project_id=args.project_id, if_exists='replace')
 
     if args.command == 'stream':
         dg = DataGenerator()
@@ -104,7 +104,7 @@ if __name__ == '__main__':
                 'order_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             message = json.dumps(order_data)
-            command = f"gcloud --project={PROJECT_ID} pubsub topics publish orders --message='{message}'"
+            command = f"gcloud --project={args.project_id} pubsub topics publish orders --message='{message}'"
             print(command)
             os.system(command)
             time.sleep(randrange(1, 5))
