@@ -1,23 +1,32 @@
 [
-    {
-        "name": "event_timestamp",
-        "mode": "REQUIRED",
-        "type": "TIMESTAMP"
-    },
-    {
-        "name": "customer_id",
-        "type": "INT64"
-    },
-    {
-        "name": "amount",
-        "type": "FLOAT64"
-    },
-    {
-        "name": "order_status",
-        "type": "STRING"
-    },
-    {
-        "name": "order_datetime",
-        "type": "STRING"
-    }
-  ]
+  {
+    "name": "event_timestamp",
+    "description": "",
+    "mode": "REQUIRED",
+    "type": "TIMESTAMP"
+  },
+  {
+    "name": "customer_id",
+    "description": "",
+    "mode": "NULLABLE",
+    "type": "INT64"
+  },
+  {
+    "name": "amount",
+    "description": "",
+    "mode": "NULLABLE",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "order_status",
+    "description": "",
+    "mode": "NULLABLE",
+    "type": "STRING"
+  },
+  {
+    "name": "order_datetime",
+    "description": "",
+    "mode": "NULLABLE",
+    "type": "STRING"
+  }
+]

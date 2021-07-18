@@ -82,6 +82,7 @@ if __name__ == '__main__':
 
     stream = subparser.add_parser('stream')
     stream.add_argument('--customer_range', type=int)
+    stream.add_argument('--project_id')
 
     args = parser.parse_args()
 
